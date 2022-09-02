@@ -1,0 +1,2 @@
+# Picture
+JS educational project
