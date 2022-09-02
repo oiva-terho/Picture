@@ -94,7 +94,11 @@ export const modals = () => {
 
     const openModalByScroll = (selector) => {
         window.addEventListener('scroll', () => {
-            if (!btnPressed && (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight)) {
+            let scrollHeight = Math.max(
+                document.documentElement.scrollHeight, 
+                document.body.scrollHeight);
+            if (!btnPressed && 
+                (window.scrollY + document.documentElement.clientHeight >= scrollHeight)) {
                 document.querySelector(selector).click();
             }
         });
