@@ -1,4 +1,4 @@
-import { modals, sliders } from "./modules";
+import { modals, sliders, forms } from "./modules";
 
 'use strict';
 
@@ -13,3 +13,4 @@ try { sliders({
         vertical: true 
     });
 } catch { console.log('Sliders are broken'); }
+try { forms(); } catch { console.log('Forms are broken'); }
