@@ -5,35 +5,35 @@ export const modals = () => {
     const gift = document.querySelector('.fixed-gift');
 
     const calcScrollBarWidth = () => {
-        const testDiv = document.createElement('div');
-        testDiv.style.width = '100px';
-        testDiv.style.overflowY = 'scroll';
-        document.body.appendChild(testDiv);
+        const tempDiv = document.createElement('div');
+        tempDiv.style.width = '100px';
+        tempDiv.style.overflowY = 'scroll';
+        document.body.appendChild(tempDiv);
 
-        const scrollWidth = testDiv.offsetWidth - testDiv.clientWidth;
-        testDiv.remove();
+        const scrollWidth = tempDiv.offsetWidth - tempDiv.clientWidth;
+        tempDiv.remove();
         return scrollWidth;
     };
 
     const scrollWidth = calcScrollBarWidth();
 
     const marginInsteadOfScroll = (item, add = true) => { 
-        if (add) { item.style.marginRight = `${scrollWidth}px`; }
-        else { item.style.marginRight = ''; }
+        if (item) { item.style.marginRight = add ? `${scrollWidth}px` : ""; }
+        else { return; }
     };
 
     const openModal = (openTrigger, display) => {
         openTrigger.style.display = display;
         document.body.classList.add('modal-open');
         marginInsteadOfScroll(document.body);
-        try { marginInsteadOfScroll(gift); } catch {}
+        marginInsteadOfScroll(gift);
     };
 
     const closeModal = () => {
         modalWindows.forEach(window => window.style.display ="none");
         document.body.classList.remove('modal-open');
         marginInsteadOfScroll(document.body, false);
-        try { marginInsteadOfScroll(gift, false); } catch {}
+        marginInsteadOfScroll(gift, false);
     };
 
     const bindModal = ({ 
@@ -94,7 +94,7 @@ export const modals = () => {
 
     const openModalByScroll = (selector) => {
         window.addEventListener('scroll', () => {
-            let scrollHeight = Math.max(
+            const scrollHeight = Math.max(
                 document.documentElement.scrollHeight, 
                 document.body.scrollHeight);
             if (!btnPressed && 
