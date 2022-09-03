@@ -831,7 +831,7 @@ h4 {
 .promo-2 img {
   max-width: 100%;
   position: relative;
-  right: -10rem;
+  /* right: -10rem; */
 }
 .feedback {
   background-color: #f7e7e6;
