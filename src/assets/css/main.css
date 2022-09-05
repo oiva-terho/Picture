@@ -209,6 +209,7 @@ h4 {
 .main {
   background-color: #f7e7e6;
   padding-top: 3rem;
+  overflow: hidden;
   /* Making it beautiful */
 
 }

@@ -6,8 +6,9 @@ export const sliders = ({
 }) => {
     const slides = document.querySelectorAll(slidesSelector);
     let slideIndex = 1,
-        pause,
-        currentSlide = slides[slideIndex - 1];
+        pause;
+
+    const currentSlide = () => slides[slideIndex - 1];
        
     const hideSlides = () => {
         slides.forEach(slide => {
@@ -20,7 +21,7 @@ export const sliders = ({
     const showSlide = (n) => {
         if (n > slides.length) { slideIndex = 1; }
         if (n < 1 ) { slideIndex = slides.length; }
-        slides[slideIndex - 1].style.display = 'block';
+        currentSlide().style.display = 'block';
         setTimeout(() => {
             slides.forEach((slide, n) => {
                 if (n != slideIndex - 1) { slide.style.display = 'none'; }
@@ -33,7 +34,7 @@ export const sliders = ({
     const plusSlide = (n, addAnimationClassIn, addAnimationClassOut) => { 
         showSlide(slideIndex += n); 
         slides.forEach(slide => slide.classList.remove('slideInLeft', 'slideOutRight', 'slideInRight', 'slideOutLeft', 'slideInDown', 'slideOutDown'));
-        slides[slideIndex - 1].classList.add(addAnimationClassIn, );
+        currentSlide().classList.add(addAnimationClassIn, );
 
         slides.forEach((slide, n) => {
             if (n != slideIndex - 1) { slide.classList.add(addAnimationClassOut); }
