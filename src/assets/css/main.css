@@ -371,6 +371,10 @@ h4 {
 .main-slider-btn img {
   width: 100%;
 }
+.main-slider-item {
+  position: absolute;
+  top: -60px;
+}
 .main-prev-btn {
   left: 0;
 }

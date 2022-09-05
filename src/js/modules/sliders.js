@@ -22,7 +22,9 @@ export const sliders = ({
         if (n < 1 ) { slideIndex = slides.length; }
         slides[slideIndex - 1].style.display = 'block';
         setTimeout(() => {
-            slides[n-2].style.display = 'none';
+            slides.forEach((slide, n) => {
+                if (n != slideIndex - 1) { slide.style.display = 'none'; }
+            });
         }, 1000);
     };
     hideSlides();
@@ -33,9 +35,9 @@ export const sliders = ({
         slides.forEach(slide => slide.classList.remove('slideInLeft', 'slideOutRight', 'slideInRight', 'slideOutLeft', 'slideInDown', 'slideOutDown'));
         slides[slideIndex - 1].classList.add(addAnimationClassIn, );
 
-        if (slideIndex == 1) { slides[slides.length - 1].classList.add(addAnimationClassOut); }
-        else if (slideIndex - 1 == slides.length) { slides[0].classList.add(addAnimationClassOut); }
-        else { slides[slideIndex - 2].classList.add(addAnimationClassOut); }
+        slides.forEach((slide, n) => {
+            if (n != slideIndex - 1) { slide.classList.add(addAnimationClassOut); }
+        });
     }; 
 
     try {
