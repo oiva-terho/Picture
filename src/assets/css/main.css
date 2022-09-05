@@ -36,6 +36,7 @@ html {
 }
 body {
   font-family: 'Circe Regular', sans-serif;
+  overflow-x: hidden;
 }
 p {
   margin: 0;
@@ -208,6 +209,7 @@ h4 {
 .main {
   background-color: #f7e7e6;
   padding-top: 3rem;
+  overflow: hidden;
   /* Making it beautiful */
 
 }
@@ -369,6 +371,10 @@ h4 {
 }
 .main-slider-btn img {
   width: 100%;
+}
+.main-slider-item {
+  position: absolute;
+  top: -60px;
 }
 .main-prev-btn {
   left: 0;
@@ -831,11 +837,16 @@ h4 {
 .promo-2 img {
   max-width: 100%;
   position: relative;
-  right: -10rem;
+  /* right: -10rem; */
 }
 .feedback {
   background-color: #f7e7e6;
   padding: 9rem 0;
+}
+.feedback-slider {
+  position: relative;
+  height: 400px;
+  width: 100%;
 }
 .feedback-slider-item {
   padding-bottom: 5rem;
