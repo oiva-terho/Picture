@@ -37,10 +37,15 @@ export const forms = () => {
 
   upload.forEach((field) => {
     field.addEventListener("input", () => {
-      let dots;
-      let filename = field.files[0].name.split(".");
-      dots = filename[0].length > 7 ? "..." : ".";
-      const outputFilename = filename[0].substring(0, 7) + dots + filename[1];
+      let dots, fileName, fileExtention;
+      let inputName = field.files[0].name.split(".");
+      dots = inputName[0].length > 7 ? "..." : ".";
+      (function() { 
+          fileExtention = inputName.pop();
+          fileName = inputName.join('.');
+        } ());
+
+      const outputFilename = fileName.substring(0, 7) + dots + fileExtention;
       field.previousElementSibling.textContent = outputFilename;
     });
   });
