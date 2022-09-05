@@ -1,95 +1,107 @@
 "use strict";
+import del from "del";
+import gulp from "gulp";
+import jsonServer from 'json-server';
+import browserSync from "browser-sync";
+import webpack from "webpack-stream";
 
-const gulp = require("gulp");
-const webpack = require("webpack-stream");
-const browsersync = require("browser-sync");
+const dest = "/OpenServer/domains/Picture",
+      src = "./src";
+const path = {
+  src: src,
+  dest: dest,
+  db: `${src}/assets/db.json`,
+  html: `${src}/*.html`,
+  assets: `${src}/assets/**/*.*`,
+  js: {
+    src: `${src}/js/main.js`,
+    watch: `${src}/**/*.js`,
+  }
+};
 
-const dist = "./dist/";
+const clear = () => { return del(dest, {force: true}); };
 
-gulp.task("copy-html", () => {
-    return gulp.src("./src/index.html")
-                .pipe(gulp.dest(dist))
-                .pipe(browsersync.stream());
-});
+const copyhtml = () => {
+    return gulp.src(path.html)
+                .pipe(gulp.dest(dest));
+};
 
-gulp.task("build-js", () => {
-    return gulp.src("./src/js/main.js")
-                .pipe(webpack({
-                    mode: 'development',
-                    output: {
-                        filename: 'script.js'
-                    },
-                    watch: false,
-                    devtool: "source-map",
-                    module: {
-                        rules: [
-                          {
-                            test: /\.m?js$/,
-                            exclude: /(node_modules|bower_components)/,
-                            use: {
-                              loader: 'babel-loader',
-                              options: {
-                                presets: [['@babel/preset-env', {
-                                    debug: true,
-                                    corejs: 3,
-                                    useBuiltIns: "usage"
-                                }]]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                }))
-                .pipe(gulp.dest(dist))
-                .on("end", browsersync.reload);
-});
+const buildJs = () => {
+  return gulp.src(path.js.src)
+    .pipe(webpack({
+      mode: 'development',
+      output: {
+        filename: 'script.js'
+      },
+      watch: false,
+      devtool: "source-map"
+    }))
+    .pipe(gulp.dest(dest));
+};
 
-gulp.task("copy-assets", () => {
-    return gulp.src("./src/assets/**/*.*")
-                .pipe(gulp.dest(dist + "/assets"))
-                .on("end", browsersync.reload);
-});
+const copyAssets = () => {
+    return gulp.src(path.assets)
+                .pipe(gulp.dest(`${dest}/assets`));
+};
 
-gulp.task("watch", () => {
-    browsersync.init({
-		server: "./dist/",
-		port: 4000,
-		notify: true
-    });
-    
-    gulp.watch("./src/index.html", gulp.parallel("copy-html"));
-    gulp.watch("./src/assets/**/*.*", gulp.parallel("copy-assets"));
-    gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
-});
+const servers = () => {
+  const server = jsonServer.create();
+  const router = jsonServer.router(path.db);
+  const middlewares = jsonServer.defaults();
 
-gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js"));
+  server.use(middlewares);
+  server.use(router);
+  server.listen(3000, () => {
+      console.log('JSON Server is running');
+  });
 
-gulp.task("build-prod-js", () => {
-    return gulp.src("./src/js/main.js")
-                .pipe(webpack({
-                    mode: 'production',
-                    output: {
-                        filename: 'script.js'
-                    },
-                    module: {
-                        rules: [
-                          {
-                            test: /\.m?js$/,
-                            exclude: /(node_modules|bower_components)/,
-                            use: {
-                              loader: 'babel-loader',
-                              options: {
-                                presets: [['@babel/preset-env', {
-                                    corejs: 3,
-                                    useBuiltIns: "usage"
-                                }]]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                }))
-                .pipe(gulp.dest(dist));
-});
+  browserSync.init({
+    server: { baseDir: dest },
+    socket: { domain: 'localhost:3001' },
+    notify: true
+  });
+};
 
-gulp.task("default", gulp.parallel("watch", "build"));
+const watcher = () => {
+  gulp.watch(path.html, copyhtml).on("all", browserSync.reload);
+  gulp.watch(path.assets, copyAssets).on("all", browserSync.reload);
+  gulp.watch(path.js.watch, buildJs).on("all", browserSync.reload);
+};
+
+const buildProdJs = () => {
+  return gulp.src(path.js.src)
+    .pipe(webpack({
+      mode: 'production',
+      output: {
+        filename: 'script.js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: [['@babel/preset-env', {
+                  corejs: 3,
+                  useBuiltIns: "usage"
+                }]]
+              }
+            }
+          }
+        ]
+      }
+    }))
+    .pipe(gulp.dest(dest));
+};
+
+export const dev = gulp.series(
+  clear, copyhtml, copyAssets, buildJs,
+  gulp.parallel(watcher, servers)
+);
+export const build = gulp.series(
+  clear,
+  gulp.parallel(copyhtml, copyAssets, buildProdJs)
+);
+export default dev;
