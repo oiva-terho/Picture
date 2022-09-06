@@ -499,9 +499,6 @@ h4 {
 .calc {
   padding: 8rem 0 4rem 0;
 }
-.calc select:focus, .calc select:hover {
-  opacity: 0.8;
-}
 .calc h2,
 .calc .p-heading {
   text-align: center;
@@ -517,12 +514,19 @@ h4 {
 .calc select {
   opacity: 0.6;
   font-family: 'Circe Extra Bold', sans-serif;
-  margin-left: 4rem;
+  margin: 0 auto;
   appearance: none;
   border: none;
   display: block;
   font-size: 1.9rem;
   padding: 2rem 0;
+  text-align: center;
+}
+.calc select:focus, .calc select:hover {
+  opacity: 0.8;
+}
+.calc #size {
+  margin-top: 2rem;
 }
 .calc #options input {
   position: absolute;
@@ -562,15 +566,13 @@ h4 {
 .calc .promocode {
   opacity: 0.6;
   font-family: 'Circe Extra Bold', sans-serif;
-  margin-left: 4rem;
+  margin: 0 auto;
+  text-align: center;
   appearance: none;
   border: none;
   display: block;
   font-size: 1.9rem;
   padding: 2rem 0;
-}
-.calc #size {
-  margin-top: 3rem;
 }
 .calc-price {
   background-color: #f7e7e6;

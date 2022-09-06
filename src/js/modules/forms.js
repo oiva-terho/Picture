@@ -4,7 +4,8 @@ import{ postData } from "../services/requests";
 export const forms = () => {
   const forms = document.querySelectorAll("form"),
     inputs = document.querySelectorAll("input"),
-    upload = document.querySelectorAll('[name="upload"]');
+    upload = document.querySelectorAll('[name="upload"]'),
+    select = document.querySelectorAll("select");
 
   phoneMask('input[name="phone"]');
 
@@ -22,11 +23,16 @@ export const forms = () => {
     question: "assets/question.php",
   };
 
-  const clearInputs = () => {
-    inputs.forEach((input) => (input.value = ""));
-    upload.forEach((field) => {
+  const clearInputs = () => { setTimeout(() => {
+    inputs.forEach(input => input.value = "");
+    inputs.forEach(input => input.checked = false);
+    select.forEach(select => select.options[0].selected = true);
+    upload.forEach(field => {
       field.previousElementSibling.textContent = "Загрузить фотографию";
     });
+    document.querySelector('.calc-price').textContent = 
+      'Для расчета нужно выбрать размер картины и материал картины';
+    }, 600);
   };
 
   upload.forEach((field) => {
@@ -37,8 +43,20 @@ export const forms = () => {
           dots = fileName.length > 7 ? "..." : ".";
 
       const clippedName = fileName.substring(0, 7) + dots + fileExtention;
-
-      field.previousElementSibling.textContent = clippedName;
+      const images = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 
+        'pjp', 'png', 'svg', 'webp', 'bmp', 'ico', 'cur', 'tif', 'tiff', 
+        'eps', 'psd', 'cdr', 'indd', 'ai', 'raw', 'raf', 'cr2', 'nrw', 'erf', 
+        'rw2', 'nef', 'arw', 'rwz', 'eip', 'dng', 'bay', 'dcr', 'crw', '3fr', 
+        'k25', 'kc2', 'mef', 'dng', 'cs1', 'orf', 'ari', 'sr2', 'mos', 'cr3', 
+        'gpr', 'srw', 'mfw', 'srf', 'fff', 'kdc', 'mrw', 'x3f', 'j6i', 'rwl', 
+        'pef', 'iiq', 'cxi', 'nksc', 'mdc'];
+      if (images.some((img) => fileExtention == img)) {
+        field.previousElementSibling.textContent = clippedName;
+      } else { 
+        field.border = '1px solid red';
+        field.previousElementSibling.textContent = 'Неверный формат изображения';
+        upload.forEach(field => field.value = '');
+      }
     });
   });
 
@@ -70,7 +88,6 @@ export const forms = () => {
         const countedPrice = parseFloat(form.querySelector('.calc-price').textContent);
         if (!isNaN(countedPrice)) {
           formData.append('Counted price', countedPrice);
-          console.log(formData);
         }
       } catch {}
 
