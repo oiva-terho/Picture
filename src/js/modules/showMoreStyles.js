@@ -6,7 +6,7 @@ export const showMoreStyles = (trigger, wrapper) => {
     
     const createCards = (response) => {
         response.forEach(({ src, title, link }) => {
-            let card = document.createElement('div');
+            const card = document.createElement('div');
             card.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1', 'animated', 'fadeInUp');
             card.innerHTML= `
                 <div class="styles-block">
