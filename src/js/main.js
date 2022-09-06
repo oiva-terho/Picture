@@ -1,4 +1,4 @@
-import { modals, sliders, forms, showMoreStyles } from "./modules";
+import { modals, sliders, forms, showMoreStyles, calc } from "./modules";
 
 'use strict';
 
@@ -17,3 +17,10 @@ try { forms(); } catch { console.log('Forms are broken'); }
 try { 
     showMoreStyles('.button-styles', '#styles .row'); 
 } catch { console.log('Styles load is broken'); }
+try { calc({
+    size: '#size', 
+    material: '#material', 
+    options: '#options input', 
+    promocode: '.promocode', 
+    result: '.calc-price'
+}); } catch (error) { console.log('Calculator is broken', error);}

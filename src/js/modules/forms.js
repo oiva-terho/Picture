@@ -65,6 +65,14 @@ export const forms = () => {
       statusMessage.append(textMessage);
 
       const formData = new FormData(form);
+      
+      try {
+        const countedPrice = parseFloat(form.querySelector('.calc-price').textContent);
+        if (!isNaN(countedPrice)) {
+          formData.append('Counted price', countedPrice);
+          console.log(formData);
+        }
+      } catch {}
 
       let api;
       api =
