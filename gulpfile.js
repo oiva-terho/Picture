@@ -5,7 +5,7 @@ import jsonServer from 'json-server';
 import browserSync from "browser-sync";
 import webpack from "webpack-stream";
 
-const dest = "/OpenServer/domains/Picture",
+const dest = "./dist",
       src = "./src";
 const path = {
   src: src,
