@@ -1,5 +1,5 @@
 import { phoneMask } from "./phoneMask";
-import{ postData } from "../services/requests";
+import { postData } from "../services/requests";
 
 export const forms = () => {
   const forms = document.querySelectorAll("form"),
@@ -15,7 +15,7 @@ export const forms = () => {
     failure: "Что-то полшло не так",
     spinner: "assets/img/spinner.gif",
     ok: "assets/img/ok.png",
-    falil: "assets/img/fail.png",
+    fail: "assets/img/fail.png",
   };
 
   const path = {
@@ -23,39 +23,41 @@ export const forms = () => {
     question: "assets/question.php",
   };
 
-  const clearInputs = () => { setTimeout(() => {
-    inputs.forEach(input => input.value = "");
-    inputs.forEach(input => input.checked = false);
-    select.forEach(select => select.options[0].selected = true);
-    upload.forEach(field => {
-      field.previousElementSibling.textContent = "Загрузить фотографию";
-    });
-    document.querySelector('.calc-price').textContent = 
-      'Для расчета нужно выбрать размер картины и материал картины';
+  const clearInputs = () => {
+    setTimeout(() => {
+      inputs.forEach((input) => (input.value = ""));
+      inputs.forEach((input) => (input.checked = false));
+      select.forEach((select) => (select.options[0].selected = true));
+      upload.forEach((field) => {
+        field.previousElementSibling.textContent = "Загрузить фотографию";
+      });
+      document.querySelector(".calc-price").textContent =
+        "Для расчета нужно выбрать размер картины и материал картины";
     }, 600);
   };
 
   upload.forEach((field) => {
     field.addEventListener("input", () => {
       let file = field.files[0].name.split("."),
-          fileExtention = file.pop(),
-          fileName = file.join('.'),
-          dots = fileName.length > 7 ? "..." : ".";
+        fileExtention = file.pop(),
+        fileName = file.join("."),
+        dots = fileName.length > 7 ? "..." : ".";
 
       const clippedName = fileName.substring(0, 7) + dots + fileExtention;
       const images = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 
-        'pjp', 'png', 'svg', 'webp', 'bmp', 'ico', 'cur', 'tif', 'tiff', 
-        'eps', 'psd', 'cdr', 'indd', 'ai', 'raw', 'raf', 'cr2', 'nrw', 'erf', 
-        'rw2', 'nef', 'arw', 'rwz', 'eip', 'dng', 'bay', 'dcr', 'crw', '3fr', 
-        'k25', 'kc2', 'mef', 'dng', 'cs1', 'orf', 'ari', 'sr2', 'mos', 'cr3', 
-        'gpr', 'srw', 'mfw', 'srf', 'fff', 'kdc', 'mrw', 'x3f', 'j6i', 'rwl', 
-        'pef', 'iiq', 'cxi', 'nksc', 'mdc'];
+      'pjp', 'png', 'svg', 'webp', 'bmp', 'ico', 'cur', 'tif', 'tiff', 
+      'eps', 'psd', 'cdr', 'indd', 'ai', 'raw', 'raf', 'cr2', 'nrw', 'erf', 
+      'rw2', 'nef', 'arw', 'rwz', 'eip', 'dng', 'bay', 'dcr', 'crw', '3fr', 
+      'k25', 'kc2', 'mef', 'dng', 'cs1', 'orf', 'ari', 'sr2', 'mos', 'cr3', 
+      'gpr', 'srw', 'mfw', 'srf', 'fff', 'kdc', 'mrw', 'x3f', 'j6i', 'rwl', 
+      'pef', 'iiq', 'cxi', 'nksc', 'mdc'];
       if (images.some((img) => fileExtention == img)) {
         field.previousElementSibling.textContent = clippedName;
-      } else { 
-        field.border = '1px solid red';
-        field.previousElementSibling.textContent = 'Неверный формат изображения';
-        upload.forEach(field => field.value = '');
+      } else {
+        field.border = "1px solid red";
+        field.previousElementSibling.textContent =
+          "Неверный формат изображения";
+        upload.forEach((field) => (field.value = ""));
       }
     });
   });
@@ -66,7 +68,7 @@ export const forms = () => {
 
       const statusMessage = document.createElement("div");
       statusMessage.classList.add("status");
-      
+
       form.classList.add("animated", "fadeOutUp");
       setTimeout(() => {
         form.style.display = "none";
@@ -83,11 +85,13 @@ export const forms = () => {
       statusMessage.append(textMessage);
 
       const formData = new FormData(form);
-      
+
       try {
-        const countedPrice = parseFloat(form.querySelector('.calc-price').textContent);
+        const countedPrice = parseFloat(
+          form.querySelector(".calc-price").textContent
+        );
         if (!isNaN(countedPrice)) {
-          formData.append('Counted price', countedPrice);
+          formData.append("Counted price", countedPrice);
         }
       } catch {}
 
@@ -97,16 +101,20 @@ export const forms = () => {
           ? path.designer
           : path.question;
 
+      const failNotification = (result) => {
+        statusImg.setAttribute("src", message.fail);
+        textMessage.textContent = `${message.failure}. Ошибка ${result.status}`;
+      };
+
       postData(api, formData)
-        .then((postResult) => {
-          console.log(postResult);
-          statusImg.setAttribute("src", message.ok);
-          textMessage.textContent = message.success;
+        .then( async (result) => {
+          console.log(await result.text());
+          if (result.ok) {
+            statusImg.setAttribute("src", message.ok);
+            textMessage.textContent = message.success;
+          } else { failNotification(result); }
         })
-        .catch(() => {
-          statusImg.setAttribute("src", message.fail);
-          textMessage.textContent = message.failure;
-        })
+        .catch((err) => { failNotification(err); })
         .finally(() => {
           clearInputs();
           setTimeout(() => {
