@@ -11,15 +11,15 @@ export const calc = ({
 
     let sizeDB, materialDB, optionsDB, sum = 0;
     getResource('http://localhost:3000/prices')
-    .then(result => { 
-        sizeDB = result.size,
-        materialDB = result.material,
-        optionsDB = result.options;
-    })
-    .catch(error => {
-        resultDiv.textContent = 'Простите, сервер временно недоступен';
-        console.log(error);
-    });
+        .then(result => { 
+            sizeDB = result.size,
+            materialDB = result.material,
+            optionsDB = result.options;
+        })
+        .catch(error => {
+            resultDiv.textContent = 'Простите, сервер временно недоступен';
+            console.log(error);
+        });
 
     const optionsPrice = () => {
         const selectedOptions = [ 0 ];

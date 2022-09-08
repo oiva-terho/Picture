@@ -1,4 +1,4 @@
-import { modals, sliders, forms, showMoreStyles, calc } from "./modules";
+import { modals, sliders, Forms, showMoreStyles, calc } from "./modules";
 
 'use strict';
 
@@ -13,7 +13,7 @@ try { sliders({
         vertical: true 
     });
 } catch { console.log('Sliders are broken'); }
-try { forms(); } catch { console.log('Forms are broken'); }
+try { new Forms().init(); } catch { console.log('Forms are broken'); }
 try { 
     showMoreStyles('.button-styles', '#styles .row'); 
 } catch { console.log('Styles load is broken'); }
