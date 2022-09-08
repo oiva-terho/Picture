@@ -93,31 +93,6 @@ export class Forms {
         this.textMessage.textContent = `${this.message.failure}. Ошибка ${result.status}`;
     }
 
-    async additionalData(form, api, formData, countedPrice) {
-        formData.append("Counted price", countedPrice);
-        form.style.display = 'none';
-
-        this.contactsForm.classList.add('calc-form-contacts', 'animated', 'fadeInUp');
-        this.contactsForm.innerHTML = `
-        <form action=# method=POST>
-            <h4>Пожалуйста, оставьте ваши контактные данные. Мы Вам перезвоним</h4>
-            <div class=main-form>
-            <input type=text name=name placeholder="Ваше имя" required>
-            <input type=text name=phone placeholder="Ваш телефон" required>
-            <button class="button button-order">Заказать</button>
-            </div>
-        </form>
-        `;
-        form.parentNode.append(this.contactsForm);
-        this.contactsForm.querySelector('button').addEventListener('click', (e) => {
-            e.preventDefault();
-            formData.append('name', this.contactsForm.querySelector('[name=name]').value);
-            formData.append('phone', this.contactsForm.querySelector('[name=phone]').value);
-            //How to force function to wait for the formData fill?
-            return formData;
-        });
-      };
-
     post(form, api, formData) {
         postData(api, formData)
             .then(async (result) => {
@@ -160,8 +135,13 @@ export class Forms {
                         form.querySelector(".calc-price").textContent
                     );
                     if (!isNaN(countedPrice)) {
-                        this.additionalData(form, api, formData, countedPrice)
-                            .then(this.post(form, api, formData));
+                        formData.append("Counted price", countedPrice);
+                        this.post(form, api, formData);
+                        setTimeout(() => {
+                            document.querySelector('#send-order').style.display = 'none';
+                            document.querySelector('#preorder').style.display = 'block';
+                        }, 1000);
+
                 }} else {
                     this.post(form, api, formData);
                 }

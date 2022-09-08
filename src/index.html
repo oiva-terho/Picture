@@ -206,37 +206,47 @@
 			<div class=row>
 				<div class="col-md-4 col-offset-1">
 					<form class="form calc_form" action=# method=POST enctype=multipart/form-data>
-						<h4>Загрузите свое фото</h4>
-						<div class=file_upload>
-							<button type=button>Загрузить фотографию</button>
-							<!-- <div>Файл не выбран</div> -->
-							<input required type=file name=upload>
+						<div id="preorder">
+							<h4>Загрузите свое фото</h4>
+							<div class=file_upload>
+								<button type=button>Загрузить фотографию</button>
+								<!-- <div>Файл не выбран</div> -->
+								<input required type=file name=upload id="calc-file-upload">
+							</div>
+							<select name=size id=size required>
+								<option value="" selected disabled hidden>Выберите размер картины</option>
+								<option value="40x50" >40x50</option>
+								<option value="50x70" >50x70</option>
+								<option value="70x70" >70x70</option>
+								<option value="70x100" >70x100</option>
+							</select>
+							<select required name=material id=material>
+								<option value="" selected disabled hidden>Выберите материал картины</option>
+								<option value="Волокно" title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">Холст из волокна</option>
+								<option value="Лён" title="Достаточно грубый и создает ощущение реальности, подходит для классических пейзажей, натюрмортов и портретов.">Льняной холст</option>
+								<option value="Хлопок" title="Изящный, подходит для всех типов реалистичных портретов.">Холст из натурального хлопка</option>
+							</select>
+							<div id=options>
+								<h4>Дополнительные услуги</h4>
+								<input id="g" type="checkbox" name="gel">
+								<label for="g">Покрытие арт-гелем</label>
+								<input id="f" type="checkbox" name="fast">
+								<label for="f">Экспресс-изготовление</label>
+								<input id="s" type="checkbox" name="shipping">
+								<label for="s">Доставка готовых работ </label>
+							</div>
+							<input type="text" class="promocode" placeholder="Введите ваш промокод">
+							<div class=calc-price>Для расчета нужно выбрать размер картины и материал картины</div>
+							<div id="next-form" class="button button-order">Быстрый заказ</div>
 						</div>
-						<select name=size id=size required>
-							<option value="" selected disabled hidden>Выберите размер картины</option>
-							<option value="40x50" >40x50</option>
-							<option value="50x70" >50x70</option>
-							<option value="70x70" >70x70</option>
-							<option value="70x100" >70x100</option>
-						</select>
-						<select required name=material id=material>
-							<option value="" selected disabled hidden>Выберите материал картины</option>
-							<option value="Волокно" title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">Холст из волокна</option>
-							<option value="Лён" title="Достаточно грубый и создает ощущение реальности, подходит для классических пейзажей, натюрмортов и портретов.">Льняной холст</option>
-							<option value="Хлопок" title="Изящный, подходит для всех типов реалистичных портретов.">Холст из натурального хлопка</option>
-						</select>
-						<div id=options>
-							<h4>Дополнительные услуги</h4>
-							<input id="g" type="checkbox" name="gel">
-							<label for="g">Покрытие арт-гелем</label>
-							<input id="f" type="checkbox" name="fast">
-							<label for="f">Экспресс-изготовление</label>
-							<input id="s" type="checkbox" name="shipping">
-							<label for="s">Доставка готовых работ </label>
+						<div id="send-order" style="display:none">
+							<h4 style="margin-bottom:5rem">Пожалуйста, оставьте ваши контактные данные. Мы Вам перезвоним</h4>
+							<div class=calc-form-contacts>
+								<input type=text name="name" placeholder="Ваше имя">
+								<input type=text name="phone" placeholder="Ваш телефон">
+								<button type="submit" class="button button-order">Заказать</button>
+							</div>
 						</div>
-						<input type="text" class="promocode" placeholder="Введите ваш промокод">
-						<div class=calc-price>Для расчета нужно выбрать размер картины и материал картины</div>
-						<button type=submit class="button button-order">Быстрый заказ</button>
 					</form>
 				</div>
 				<div class="col-md-4 col-md-offset-2 hidden-sm hidden-xs">

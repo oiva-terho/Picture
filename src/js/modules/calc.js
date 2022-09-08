@@ -43,6 +43,22 @@ export const calc = ({
         } else {
             resultDiv.textContent = sum;
         }
+        nextForm();
+    };
+
+    const nextForm = () => {
+        const countedPrice = parseFloat(resultDiv.textContent);
+        if (!isNaN(countedPrice) && document.querySelector('#calc-file-upload').value !== '') {
+            const showNextForm = () => {
+                const additionalForm = document.querySelector('#send-order');
+                document.querySelector('#preorder').style.display = 'none';
+                additionalForm.style.display = 'block';
+                additionalForm.querySelector('[name="name"]').setAttribute('required', true);
+                additionalForm.querySelector('[name="phone"]').setAttribute('required', true);
+            };
+            console.log(countedPrice, document.querySelector('#next-form'));
+            document.querySelector('#next-form').addEventListener('click', showNextForm);
+        }
     };
 
     sizeInput.addEventListener('change', calcFunction);
