@@ -1,4 +1,4 @@
-import { modals, sliders, Forms, showMoreStyles, calc } from "./modules";
+import { modals, sliders, Forms, showMoreStyles, calc, imgOnHover } from "./modules";
 
 'use strict';
 
@@ -24,3 +24,6 @@ try { calc({
     promocode: '.promocode', 
     result: '.calc-price'
 }); } catch (error) { console.log('Calculator is broken', error);}
+
+try { imgOnHover('.sizes-block'); } 
+catch(e) { console.log('ImgOnHover is broken', e); }
