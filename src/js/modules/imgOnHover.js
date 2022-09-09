@@ -1,5 +1,6 @@
 export const imgOnHover = (imgsSelector) => {
     const blocks = document.querySelectorAll(imgsSelector);
+    
     const showOrHideImg = (block, show = true) => {
         const img = block.querySelector('img');
         img.src = show 
@@ -9,10 +10,19 @@ export const imgOnHover = (imgsSelector) => {
             p.style.display = show ? 'none' : 'block';
         });
     };
-    blocks.forEach(block => 
-        block.addEventListener('mouseover', () => showOrHideImg(block))
-    );
-    blocks.forEach(block => 
-        block.addEventListener('mouseout', () => showOrHideImg(block, false))
-    );    
+    blocks.forEach(block => {
+        let isShown = false;
+        block.addEventListener('mouseover', () => {
+            if (!isShown) {
+                showOrHideImg(block);
+                isShown = true;
+            }
+        });
+        block.addEventListener('mouseout', () => {
+            if (isShown) {
+                showOrHideImg(block, false);
+                isShown = false;
+            } 
+        });
+    });
 };
