@@ -11,6 +11,8 @@ export const imgOnHover = (imgsSelector) => {
         });
     };
     blocks.forEach(block => {
+        // isShown is needed to exclude double events, which happens if mouse 
+        // leaves wrong: on Edge Visual Search plugin or Alt+Tab
         let isShown = false;
         block.addEventListener('mouseover', () => {
             if (!isShown) {
