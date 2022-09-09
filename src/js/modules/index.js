@@ -5,3 +5,4 @@ export { showMoreStyles } from './showMoreStyles';
 export { calc } from './calc';
 export { imgOnHover } from './imgOnHover';
 export { filter } from './filter';
+export { accordion } from './accordion';
