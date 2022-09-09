@@ -5,6 +5,7 @@ import {
   showMoreStyles,
   calc,
   filter,
+  imgOnHover
 } from "./modules";
 
 ("use strict");
@@ -67,4 +68,11 @@ try {
   });
 } catch (e) {
   console.log("Filter is broken", e);
+}
+
+// Showes image on hover in sizes section --------------------------------------
+try {
+  imgOnHover(".sizes-block");
+} catch (e) {
+  console.log("ImgOnHover is broken", e);
 }
