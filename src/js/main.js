@@ -1,8 +1,8 @@
-import { modals, sliders, Forms, showMoreStyles, calc } from "./modules";
+import { modals, sliders, Forms, showMoreStyles, calc, filter } from "./modules";
 
 'use strict';
 
-try { modals(); } catch { console.log('Modal windows are broken'); }
+try { modals(); } catch (e) { console.log('Modal windows are broken', e); }
 try { sliders({ 
         slidesSelector: '.feedback-slider-item', 
         prevSelector: '.main-prev-btn', 
@@ -12,15 +12,20 @@ try { sliders({
         slidesSelector: '.main-slider-item', 
         vertical: true 
     });
-} catch { console.log('Sliders are broken'); }
-try { new Forms().init(); } catch { console.log('Forms are broken'); }
+} catch (e) { console.log('Sliders are broken', e); }
+try { new Forms().init(); } catch (e) { console.log('Forms are broken', e); }
 try { 
     showMoreStyles('.button-styles', '#styles .row'); 
-} catch { console.log('Styles load is broken'); }
+} catch (e) { console.log('Styles load is broken', e); }
 try { calc({
     size: '#size', 
     material: '#material', 
     options: '#options input', 
     promocode: '.promocode', 
     result: '.calc-price'
-}); } catch (error) { console.log('Calculator is broken', error);}
+}); } catch (e) { console.log('Calculator is broken', e);}
+try { filter({ 
+    menuSelector: '.portfolio-menu', 
+    imagesWrapperSelector: '.portfolio-wrapper', 
+    noImagesSelector: '.portfolio-no' 
+}); } catch (e) { console.log('Filter is broken', e); }
