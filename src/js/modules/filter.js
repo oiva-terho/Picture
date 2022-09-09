@@ -19,8 +19,8 @@ export const filter = ({
         Array.from(wrapper.children).forEach(img => hide(img));
         hide(no);
         const imagesToShow =  wrapper.querySelectorAll(`.${type}`);
-        if (imagesToShow.length > 0) { imagesToShow.forEach(img => show(img));
-        } else { show(no); }
+        if (imagesToShow.length) { imagesToShow.forEach(img => show(img)); } 
+        else { show(no); }
     };
     menu.addEventListener('click', (e) => {
         if (e.target && e.target.tagName == "LI") {
