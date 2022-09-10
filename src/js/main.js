@@ -5,7 +5,8 @@ import {
   showMoreStyles,
   calc,
   filter,
-  imgOnHover
+  imgOnHover,
+  accordion
 } from "./modules";
 
 ("use strict");
@@ -75,4 +76,11 @@ try {
   imgOnHover(".sizes-block");
 } catch (e) {
   console.log("ImgOnHover is broken", e);
+}
+
+// Accordion in often-questions section ----------------------------------------
+try {
+  accordion('.accordion-heading');
+} catch (e) {
+  console.log("Accordion is broken", e);
 }
