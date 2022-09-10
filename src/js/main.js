@@ -5,7 +5,9 @@ import {
   showMoreStyles,
   calc,
   filter,
-  imgOnHover
+  imgOnHover,
+  burger,
+  scroller
 } from "./modules";
 
 ("use strict");
@@ -75,4 +77,18 @@ try {
   imgOnHover(".sizes-block");
 } catch (e) {
   console.log("ImgOnHover is broken", e);
+}
+
+// Adaptive burger menu --------------------------------------------------------
+try {
+  burger('.burger-menu', '.burger');
+} catch (e) {
+  console.log("Burger is broken", e);
+}
+
+// Smooth scroll for all # elements --------------------------------------------
+try {
+  scroller('.pageup');
+} catch (e) {
+  console.log("Smooth scroll is broken", e);
 }

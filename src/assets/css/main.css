@@ -1326,6 +1326,16 @@ h4 {
 .status {
   text-align: center;
 }
+.pageup {
+  width: 46px ;
+  height: 46px;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  z-index: 30;
+  cursor: pointer;
+  transition: 1s all;
+}
 @media (max-width: 1399px) {
   .paints {
     display: none;
@@ -1633,6 +1643,10 @@ h4 {
   }
   .footer p {
     text-align: center;
+  }
+  .pageup {
+    width: 36px ;
+    height: 36px;
   }
 }
 @media (max-width: 577px) {
