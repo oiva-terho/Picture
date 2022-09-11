@@ -81,7 +81,7 @@ try {
 
 // Adaptive burger menu --------------------------------------------------------
 try {
-  burger('.burger-menu', '.burger');
+  burger('.header-menu', '.burger-button');
 } catch (e) {
   console.log("Burger is broken", e);
 }
