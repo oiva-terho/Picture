@@ -7,7 +7,7 @@ import {
   filter,
   imgOnHover,
   burger,
-  scroller
+  scroller,
   accordion
 } from "./modules";
 
@@ -92,7 +92,7 @@ try {
   scroller('.pageup');
 } catch (e) {
   console.log("Smooth scroll is broken", e);
-
+}
 // Accordion in often-questions section ----------------------------------------
 try {
   accordion('.accordion-heading');
