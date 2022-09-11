@@ -8,6 +8,7 @@ import {
   imgOnHover,
   burger,
   scroller
+  accordion
 } from "./modules";
 
 ("use strict");
@@ -91,4 +92,10 @@ try {
   scroller('.pageup');
 } catch (e) {
   console.log("Smooth scroll is broken", e);
+
+// Accordion in often-questions section ----------------------------------------
+try {
+  accordion('.accordion-heading');
+} catch (e) {
+  console.log("Accordion is broken", e);
 }

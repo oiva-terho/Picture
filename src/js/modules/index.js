@@ -7,3 +7,4 @@ export { imgOnHover } from './imgOnHover';
 export { filter } from './filter';
 export { burger } from './burger';
 export { scroller } from './scroller';
+export { accordion } from './accordion';
