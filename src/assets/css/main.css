@@ -112,54 +112,72 @@ h4 {
 }
 .header .container {
   padding: 0;
+  display: flex;
+  justify-content: space-between;
 }
-.header .burger {
-  margin-right: -1rem;
+.header .burger-button {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
   background-color: #c51abb;
   border: none;
-  padding: 2rem 1.5rem;
   color: #ffffff;
-  cursor: auto;
   font-family: 'Circe Bold', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  user-select: none;
+  z-index: 30;
 }
-.header .burger img {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-  position: relative;
-  top: -2px;
+.header .burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 22px;
+  margin-right: 2rem;
 }
-.header-menu {
+.header .burger-line {
+  display: block;
+  height: 4px;
+  width: 27px;
+  border-radius: 10px;
+  background: #fff;
+}
+.header .burger .burger-line-1 {
+  transform-origin: 0% 0%;
+  transition: all 0.4s ease-in-out;
+}
+.header .burger .burger-line-2 {
+  transition: all 0.2s ease-in-out;
+}
+.header .burger .burger-line-3 {
+  transform-origin: 0% 100%;
+  transition: all 0.4s ease-in-out;
+}
+.header .burger-button-active .burger-line-1 {
+  transform: rotate(45deg);
+}
+.header .burger-button-active .burger-line-2 {
+  transform: scaleY(0);
+}
+.header .burger-button-active .burger-line-3 {
+  transform: rotate(-45deg);
+}
+.header .header-menu {
+  display: flex;
   padding: 0;
   margin: 0;
+  z-index: 30;
+}
+.header .header-menu li {
+  padding: 2rem 1.5rem;
+  font-size: 1.5rem;
+  text-decoration: none;
   list-style: none;
 }
-.header-menu-sub {
-  display: none;
+.header .header-menu a {
+  text-decoration: none;
+  color:#333;
 }
-.header-menu > li:hover .header-menu-sub {
-  display: block;
-}
-.header-menu .header-menu-sub {
-  position: absolute;
-}
-.header-menu .header-menu-sub li {
-  display: block;
-}
-.header-menu .header-menu-sub li a:after {
-  display: none;
-}
-.header-menu li {
-  display: inline-block;
-  padding: 2rem 1.5rem;
-  padding-right: 3rem;
-  font-size: 1.5rem;
-}
-.header-menu li a {
-  color: inherit;
-}
-.header-menu li a:after {
+.header-menu > li > a:after {
   content: '';
   background-image: url("../img/down-arrow.svg");
   margin-left: 0.7rem;
@@ -172,42 +190,33 @@ h4 {
   text-decoration: none;
   color: inherit;
 }
-.header .button-wrap {
-  width: 100%;
-  height: 6rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.header-menu > li:hover .header-menu-sub {
+  display: block;
 }
-.header .button-order {
-  display: inline-block;
-  padding: 1.4rem 3rem;
-  box-shadow: none;
-}
-.header .button-order img {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-left: 1rem;
-}
-.header .burger-menu {
+.header .header-menu-sub {
   display: none;
   position: absolute;
   background-color: #fff;
-  z-index: 10;
+  z-index: 30;
   list-style: none;
   padding: 0;
   margin: 0;
   width: 20rem;
 }
-.header .burger-menu li {
-  padding: 2rem;
+.header .header-menu-sub li:hover {
+  background-color:#eed4d2;
 }
-.header .burger-menu li:hover {
-  background-color: #eed4d2;
+.header .button-wrap {
+  display: flex;
+  align-items: center;
 }
-.header .burger-menu li a {
-  color: inherit;
-  text-decoration: none;
+.header .button-wrap button {
+  padding: 1rem 2rem;
+}
+.header .button-wrap img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 1rem;
 }
 .file_upload:hover, .file_upload:focus-within {
   border-radius: 50px;
@@ -217,8 +226,6 @@ h4 {
   background-color: #f7e7e6;
   padding-top: 3rem;
   overflow: hidden;
-  /* Making it beautiful */
-
 }
 .main .file_upload {
   position: relative;
@@ -1340,6 +1347,16 @@ h4 {
 .status {
   text-align: center;
 }
+.pageup {
+  width: 46px ;
+  height: 46px;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  z-index: 30;
+  cursor: pointer;
+  transition: 1s all;
+}
 @media (max-width: 1399px) {
   .paints {
     display: none;
@@ -1367,21 +1384,14 @@ h4 {
   .fixed-gift {
     display: none;
   }
-  .header .burger {
-    padding: 2.1rem 1rem;
-    font-size: 1.3rem;
+  .header .burger-button {
+    padding: 1rem;
   }
-  .header .burger img {
-    width: 1rem;
-    height: 1rem;
+  .header .header-menu li {
+    padding: 1.5rem 1rem;
   }
-  .header-menu li {
-    font-size: 1.4rem;
-    padding: 2rem 1rem;
-  }
-  .header .button-order {
-    padding: 1rem 2rem;
-    font-size: 1.3rem;
+  .header .button-wrap button {
+    padding: 0.6rem 2rem;
   }
   .main h1 {
     font-size: 4.5rem;
@@ -1459,16 +1469,29 @@ h4 {
   }
 }
 @media (max-width: 991px) {
-  .header .burger {
-    cursor: pointer;
+  .header .container {
+    justify-content: left;
   }
-  .header .burger span {
+  .header {
+    background-color:#c51abb;
+  }
+  .header .header-menu {
+    position: absolute;
+    top: 4rem;
+    background-color:#fff;
     display: none;
+    z-index: 30;
   }
-  .header .burger img {
-    width: 2rem;
-    height: 2rem;
-    margin: 0 1rem;
+  .header-menu > li > a:after {
+    transform: rotate(-90deg);
+  }
+  .header .header-menu-sub {
+    background-color:#eed4d2;
+    right: -100%;
+    transform: translateY(-3.6rem);
+  }
+  .header .button-wrap {
+    display: none;
   }
   .main-features img {
     top: 0;
@@ -1647,6 +1670,10 @@ h4 {
   }
   .footer p {
     text-align: center;
+  }
+  .pageup {
+    width: 36px ;
+    height: 36px;
   }
 }
 @media (max-width: 577px) {

@@ -6,6 +6,8 @@ import {
   calc,
   filter,
   imgOnHover,
+  burger,
+  scroller,
   accordion
 } from "./modules";
 
@@ -78,6 +80,19 @@ try {
   console.log("ImgOnHover is broken", e);
 }
 
+// Adaptive burger menu --------------------------------------------------------
+try {
+  burger('.header-menu', '.burger-button');
+} catch (e) {
+  console.log("Burger is broken", e);
+}
+
+// Smooth scroll for all # elements --------------------------------------------
+try {
+  scroller('.pageup');
+} catch (e) {
+  console.log("Smooth scroll is broken", e);
+}
 // Accordion in often-questions section ----------------------------------------
 try {
   accordion('.accordion-heading');
